@@ -17,7 +17,7 @@
     "webpack": "^3.3.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --open",
+    "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js"
   },
   "devDependencies": {

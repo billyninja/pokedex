@@ -8,7 +8,11 @@ class Preview extends React.Component {
     }
 
     render() {
-      return (<h2>trainer preview here!</h2>);
+        return (
+            <div className="">
+                <h2>trainer preview here!</h2>
+            </div>
+        );
     }
 }
 

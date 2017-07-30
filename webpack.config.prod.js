@@ -29,6 +29,9 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: require.resolve('babel-loader'),
+        query: {
+            presets: ['react', 'es2015']
+        }
       }
     ]
   },

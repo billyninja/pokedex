@@ -38,22 +38,32 @@ class PokedexMainView extends React.Component {
   }
 
   render(props) {
+    let ev = null;
+    
+    if(this.state.currentlySelectedInfo.evolveTo) {
+      ev = pokeList[this.state.currentlySelectedInfo.evolveTo];
+    }
+
     return (
         <div className="pokedex-main-view">
-          <h1>PokéDex</h1>
+          <h1 className="title">PokéDex</h1>
 
-          <div className="trainer-preview-container"> 
-            <trainer.Preview trainer={trainer1} />
+          <div className="section">
+            <div className="trainer-preview-container"> 
+              <trainer.Preview trainer={trainer1} />
+            </div>
           </div>
 
-          <div className="listview-container"> 
-            <pokedex.ListView currentlySelected={this.state.currentlySelected} list={pokeList} parentClickCallback={this.changeCurrentlySelected} />
+          <div className="section">
+            <div className="columns">
+              <div className="column is-half listview-container"> 
+                <pokedex.ListView currentlySelected={this.state.currentlySelected} list={pokeList} parentClickCallback={this.changeCurrentlySelected} />
+              </div>
+              <div className="column is-half detailview-container"> 
+                <pokedex.DetailView entry={this.state.currentlySelectedInfo} evolveTo={ev} />
+              </div>
+            </div>
           </div>
-
-          <div className="detailview-container"> 
-            <pokedex.DetailView entry={this.state.currentlySelectedInfo} />
-          </div>
-
         </div>
     );
   }

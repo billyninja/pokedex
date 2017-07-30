@@ -27,22 +27,31 @@ class ListFilter extends React.Component {
     super(props);
     this.state = {
       collapsed: true,
-      filterGrassType: false,
-      filterFireType: false,
-      filterGrassType: false,
-      filterFireType: false,
-      filterWaterType: false,
-      filterBugType: false,
-      filterNormalType: false,
-      filterPoisonType: false,
-      filterRockType: false,
-      filterElectricType: false,
-      filterGroundType: false,
-      filterPsychicType: false,
+      filterGrassType: true,
+      filterFireType: true,
+      filterGrassType: true,
+      filterFireType: true,
+      filterWaterType: true,
+      filterBugType: true,
+      filterNormalType: true,
+      filterPoisonType: true,
+      filterRockType: true,
+      filterElectricType: true,
+      filterGroundType: true,
+      filterPsychicType: true,
+      filterGhostType: true,
+      filterDragonType: true,
+      filterIceType: true,
+      filterFightingType: true,
     };
     this.changeFilterCB = props.changeFilterCB;
     this.updateFilter = this.updateFilter.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+
+  }
+
+  componentDidMount() {
+    this.updateFilter();
   }
 
   handleInputChange(event) {
@@ -60,65 +69,65 @@ class ListFilter extends React.Component {
   }
 
   render() {
-    return (<div className="filter-container">
+    return (<div className="tile filter-container">
       <h4>Filters:</h4>
       <form className="filterForm">
         <div className="type-filters-container"> 
 
         <div>
-          <label for="filterGrassType">Grass</label>
+          <label htmlFor="filterGrassType">Grass</label>
           <input type="checkbox" name="filterGrassType" value={this.state.filterGrassType} checked={this.state.filterGrassType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterFireType">Fire</label>
+          <label htmlFor="filterFireType">Fire</label>
           <input type="checkbox" name="filterFireType" value={this.state.filterFireType} checked={this.state.filterFireType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterWaterType">Water</label>
+          <label htmlFor="filterWaterType">Water</label>
           <input type="checkbox" name="filterWaterType" value={this.state.filterWaterType} checked={this.state.filterWaterType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterBugType">Bug</label>
+          <label htmlFor="filterBugType">Bug</label>
           <input type="checkbox" name="filterBugType" value={this.state.filterBugType} checked={this.state.filterBugType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterNormalType">Normal</label>
+          <label htmlFor="filterNormalType">Normal</label>
           <input type="checkbox" name="filterNormalType" value={this.state.filterNormalType} checked={this.state.filterNormalType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterPoisonType">Poison</label>
+          <label htmlFor="filterPoisonType">Poison</label>
           <input type="checkbox" name="filterPoisonType" value={this.state.filterPoisonType} checked={this.state.filterPoisonType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterRockType">Rock</label>
+          <label htmlFor="filterRockType">Rock</label>
           <input type="checkbox" name="filterRockType" value={this.state.filterRockType} checked={this.state.filterRockType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterElectricType">Electric</label>
+          <label htmlFor="filterElectricType">Electric</label>
           <input type="checkbox" name="filterElectricType" value={this.state.filterElectricType} checked={this.state.filterElectricType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterGroundType">Ground</label>
+          <label htmlFor="filterGroundType">Ground</label>
           <input type="checkbox" name="filterGroundType" value={this.state.filterGroundType} checked={this.state.filterGroundType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterPsychicType">Psychic</label>
+          <label htmlFor="filterPsychicType">Psychic</label>
           <input type="checkbox" name="filterPsychicType" value={this.state.filterPsychicType} checked={this.state.filterPsychicType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterGhostType">Ghost</label>
+          <label htmlFor="filterGhostType">Ghost</label>
           <input type="checkbox" name="filterGhostType" value={this.state.filterGhostType} checked={this.state.filterGhostType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterDragonType">Dragon</label>
+          <label htmlFor="filterDragonType">Dragon</label>
           <input type="checkbox" name="filterDragonType" value={this.state.filterDragonType} checked={this.state.filterDragonType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterIceType">Ice</label>
+          <label htmlFor="filterIceType">Ice</label>
           <input type="checkbox" name="filterIceType" value={this.state.filterIceType} checked={this.state.filterIceType} onChange={this.handleInputChange} /> 
         </div>
         <div>
-          <label for="filterFightingType">Fighting</label>
+          <label htmlFor="filterFightingType">Fighting</label>
           <input type="checkbox" name="filterFightingType" value={this.state.filterFightingType} checked={this.state.filterFightingType} onChange={this.handleInputChange} /> 
         </div>
 
@@ -238,7 +247,7 @@ class ListView extends React.Component {
 
         if (this.filter(curr)){
           listItems.push((
-            <ListEntry isSelected={this.props.currentlySelected == num} parentClickCallback={this.handleEntryClicked} info={curr} number={num} key={num} />
+            <ListEntry key={num} isSelected={this.props.currentlySelected == num} parentClickCallback={this.handleEntryClicked} info={curr} number={num} />
           ));
         }
       }
@@ -260,21 +269,38 @@ class DetailView extends React.Component {
     }
 
     render() {
-      return (<div>
-                <h3>{this.props.entry.name} Type: {this.props.entry.type}</h3>
-                <hr/>
-                <div className="stats-list">
-                  Att: {this.props.entry.attack} Def: {this.props.entry.defense} 
+      return (<div className="container">
+
+                <div className="tile is-6">
+                  <h3>{this.props.entry.name} Type: {this.props.entry.type}</h3>
                 </div>
-                <hr/>
-                <h4>Moves:</h4>
-                <ul className="move-list">
-                  {this.props.entry.moves.map((mv) => {
-                    return (<li>{mv}</li>)
-                  })}
-                </ul>
-              </div>
-      );
+
+                <div className="tile is-parent is-6">
+                  
+                  <div className="tile is-child">
+                    Att: {this.props.entry.attack} Def: {this.props.entry.defense} 
+                  </div>
+                  
+                  <div className="tile is-child">
+                    <h4>Moves:</h4>
+                    <ul className="move-list">
+                      {this.props.entry.moves.map((mv, idx) => {
+                        return (<li key={idx}>{mv}</li>)
+                      })}
+                    </ul>
+                  </div>
+                  <div className="tile is-child">
+                    <h4>Description goes here</h4>
+                  </div>
+
+                  {this.props.evolveTo && 
+                    <div className="tile is-child">
+                      <h4>Evolves to: {this.props.evolveTo.name}</h4>
+                    </div>}
+
+                </div>
+
+      </div>);
     }
 }
 

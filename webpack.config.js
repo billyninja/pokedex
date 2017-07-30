@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -9,9 +10,9 @@ module.exports = {
   module: {
       rules: [
           {
-              test: /\.jsx|.js?$/,
+              test: /\.jsx|\.js?$/,
               exclude: /node_modules/,
-              loader: 'babel-loader',
+              loader: require.resolve('babel-loader'),
               query: {
                   presets: ['react', 'es2015']
               }
@@ -21,6 +22,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
+    //hot: true
   },
 };
